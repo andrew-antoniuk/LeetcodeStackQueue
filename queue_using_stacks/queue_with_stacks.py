@@ -2,7 +2,7 @@
 Docstring for queue_with_stacks
 """
 
-from datatypes import Stack # does not work somehow
+from datatypes.data import Stack
 
 class MyQueue:
 
