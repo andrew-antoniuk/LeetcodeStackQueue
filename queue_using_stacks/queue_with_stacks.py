@@ -28,7 +28,8 @@ class MyQueue:
     def transfer(self):
 
         """
-        Helper method.
+        Helper method for transfering data from stack_in into stack_out.
+        Used for rearrangement, which makes .pop() and .peek() methods correct and possible
         """
 
         if self.stack_out.is_empty():
