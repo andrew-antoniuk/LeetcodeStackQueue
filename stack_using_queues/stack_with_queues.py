@@ -30,7 +30,6 @@ class MyStack:
 
         self.q1, self.q2 = self.q2, self.q1
 
-
     def pop(self) -> int:
 
         """
@@ -60,6 +59,7 @@ class MyStack:
         """
 
         return self.q1.is_empty()
+
 
 # Your MyStack object will be instantiated and called as such:
 # obj = MyStack()
