@@ -2,32 +2,39 @@
 Data types implementations
 """
 
-from collections import deque
+class Node:
+
+    """
+    Linked List Data Structure
+    """
+
+    def __init__(self, data):
+        self.data = data
+        self.next = None
 
 class Stack:
 
     """
-    Stack Data Type
+    Stack with Linked List Data Type
     """
 
     def __init__(self):
-        self.__items = []
+        self.top = None
+        self.count = 0
 
-    def is_empty(self) -> bool:
+    def __len__(self):
+        return self.count
 
-        """
-        Emptiness of the Stack
-        """
-
-        return not self.__items
-
-    def push(self, item):
+    def push(self, x):
 
         """
         Add new item to the top
         """
 
-        self.__items.append(item)
+        temp = Node(x)
+        temp.next = self.top
+        self.top = temp
+        self.count += 1
 
     def pop(self):
 
@@ -38,7 +45,11 @@ class Stack:
         if self.is_empty():
             raise IndexError("Stack is empty")
 
-        return self.__items.pop()
+        temp = self.top
+        self.top = self.top.next
+        val = temp.data
+        self.count -= 1
+        return val
 
     def peek(self):
 
@@ -49,28 +60,29 @@ class Stack:
         if self.is_empty():
             raise IndexError("Stack is empty")
 
-        return self.__items[-1]
+        return self.top.data
 
-    def __len__(self) -> int:
-        return len(self.__items)
+    def is_empty(self):
 
-    def __str__(self) -> str:
-        return f"Stack({self.__items})"
+        """
+        Emptiness of the Stack
+        """
+
+        return self.top is None
 
 class Queue:
 
     """
-    Queue Data Type
+    Queue with Linked List Data Type
     """
 
     def __init__(self):
-        self.__items = deque()
+        self.front = None
+        self.rear = None
+        self.size = 0
 
     def __len__(self):
-        return len(self.__items)
-
-    def __str__(self):
-        return f"Queue({self.__items})"
+        return self.size
 
     def is_empty(self):
 
@@ -78,15 +90,25 @@ class Queue:
         Emptiness of the Queue
         """
 
-        return not self.__items
+        return self.front is None
 
-    def add(self, item):
+    # Add element to the queue
+    def add(self, data):
 
         """
         Add new item to the edge
         """
 
-        self.__items.append(item)
+        new_node = Node(data)
+
+        if self.is_empty():
+            self.front = self.rear = new_node
+
+        else:
+            self.rear.next = new_node
+            self.rear = new_node
+
+        self.size += 1
 
     def pop(self):
 
@@ -97,7 +119,14 @@ class Queue:
         if self.is_empty():
             raise IndexError("Queue is empty")
 
-        return self.__items.popleft()
+        removed = self.front.data
+        self.front = self.front.next
+        if self.front is None:
+            self.rear = None
+
+        self.size -= 1
+
+        return removed
 
     def peek(self):
 
@@ -108,4 +137,4 @@ class Queue:
         if self.is_empty():
             raise IndexError("Queue is empty")
 
-        return self.__items[0]
+        return self.front.data
