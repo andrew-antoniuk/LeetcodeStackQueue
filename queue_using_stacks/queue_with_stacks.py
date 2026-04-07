@@ -31,7 +31,6 @@ class MyQueue:
         Helper method for transfering data from stack_in into stack_out.
         Used for rearrangement, which makes .pop() and .peek() methods correct and possible
         """
-
         if self.stack_out.is_empty():
             while not self.stack_in.is_empty():
                 self.stack_out.push(self.stack_in.pop())
@@ -42,10 +41,10 @@ class MyQueue:
         Remove and return item from the front of the queue
         """
 
-        if self.empty():
+        if self.stack_in.is_empty():
             raise IndexError("Queue is empty")
-
         self.transfer()
+
         return self.stack_out.pop()
 
     def peek(self) -> int:
@@ -54,7 +53,10 @@ class MyQueue:
         Return item from the front of the queue
         """
 
+        if self.stack_in.is_empty():
+            raise IndexError("Queue is empty")
         self.transfer()
+
         return self.stack_out.peek()
 
     def empty(self) -> bool:
